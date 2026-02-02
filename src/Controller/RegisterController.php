@@ -39,13 +39,16 @@ class RegisterController extends AbstractController
                 // Par défaut l'utilisateur n'est pas admin
                 $user['isadmin'] = 0;
 
+                // On hash le mot de passe
+                $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
+
                 // On persite les informations en BDD
                 $id = $this->userRepository->insert($user);
 
                 // On authentifie l'utilsateur directement
                 $_SESSION['user'] = [
                     'id' => $id,
-                    'username' => $user['firstname']
+                    'firstname' => $user['firstname']
                 ];
 
                 // On redirige vers son dashboard

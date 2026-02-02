@@ -25,16 +25,16 @@
                 <tbody>
                     <?php foreach ($users as $user): ?>
                         <tr>
-                            <td><?php echo $user->getId() ?></td>
-                            <td><?php echo $user->getFirstname() ?> <?php echo $user->getLastname() ?></td>
-                            <td><?php echo $user->getEmail() ?></td>
+                            <td><?php echo htmlspecialchars($user->getId()) ?></td>
+                            <td><?php echo htmlspecialchars($user->getFirstname()) ?> <?php echo htmlspecialchars($user->getLastname()) ?></td>
+                            <td><?php echo htmlspecialchars($user->getEmail()) ?></td>
                             <td><?= $user->getIsadmin() ? "admin" : "user" ?></td>
-                            <?php /*
-                            <td>
+                            <?php 
+                            /* <td>
                                 <a href="/admin/user/edit/<?php echo $user->getId() ?>" class="btn btn-outline-primary"><i class="bi bi-pencil"></i></a>
                                 <a href="/admin/user/archive/<?php echo $user->getId() ?>" class="btn btn-outline-danger"><i class="bi bi-archive"></i></a>
-                            </td>
-                            */ ?>
+                            </td> */
+                            ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
