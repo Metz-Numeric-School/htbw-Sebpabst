@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] - 2026-02-02
+
+## Résoudre les failles
+
+### Si les user peuvent aller dans les pages admin
+
+- Chercher le fichiers où les routes sont déclarés
+- Regarder s’il y a des guard
+- Les ajouter aux routes qui en ont besoins
+
+### Si les password ne sont pas hachés en bdd
+
+- Regarder dans register.php, securityController.php
+- Utilsier password_hash() dans SegisterController.php et password_verify() dans SecurityController.php
+
+### Failles XSS
+
+En PHP, les failles XSS apparaissent quand on affiche des données sans les échapper. Chercher :
+
+- <?= $variable ?> ou <?php echo $variable ?>
+- Et on leur ajoute `htmlspecialchars()`
+
+### Correction injection SQL
+
+On repère des failles injection SQL avec des patterns,
+
+Pour les trouver : on va dans le searchBar vscode, et on active la recherche pour regex (symbole .*). 
+
+On colle `->(query|exec|multi_query|real_query)\(`
+
+On va ensuite regarder les résultats, qui sont des fonctions, si elles contiennent des $variables, il faut aussi regarder si la fonction contient des paramètre, comme premier exemple `public function insert(array $data = array())`
+
+# Correction de bugs
+
+Si bug d’affichage variables, on a dans le template une variable non reconnu qui s’affiche en dur dans l’app, sur le web
+
+Il faut regarder comment est récupéré la variable dans le controller, et mettre la bonne en front, ou même regarder l’existence de la variables en bdd
+
+Par exemple, si le front affiche une variables firstname mais il ne le trouve pas en back, on regarde si elle existe en base de données, si elle existe on regarde dans le controller pour voir si elle est bien récupéré, par exemple j'ai constaté que firstname est mis dans un variable qui s’appelle username 
+
 ## [0.2.0] - 2026-02-02
 
 ### 🚀 Features
